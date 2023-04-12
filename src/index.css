@@ -25,16 +25,16 @@ html {
   --primary-900: #7b6183;
 
   /* grey */
-  --grey-50: #f0f4f8;
-  --grey-100: #d9e2ec;
-  --grey-200: #bcccdc;
-  --grey-300: #9fb3c8;
-  --grey-400: #829ab1;
-  --grey-500: #627d98;
-  --grey-600: #486581;
-  --grey-700: #334e68;
-  --grey-800: #243b53;
-  --grey-900: #102a43;
+  --grey-50: #f5edf3;
+  --grey-100: #ecdae6;
+  --grey-200: #e2c8da;
+  --grey-300: #d8b5ce;
+  --grey-400: #cfa3c2;
+  --grey-500: #7e396a;
+  --grey-600: #6f325c;
+  --grey-700: #5f2b4f;
+  --grey-800: #4f2442;
+  --grey-900: #3f1c35;
   /* rest of the colors */
   --black: #222;
   --white: #fff;
@@ -324,5 +324,5 @@ ul {
 
 /* Images - https://www.figma.com/
 Favicon - https://favicon.io/
-Color shades - https://maketintsandshades.com/#B08BBB
+Color shades - https://maketintsandshades.com/
 color palette - https://colorhunt.co/palette/89375fce5959bacddbf3e8ff */
