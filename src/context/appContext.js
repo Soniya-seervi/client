@@ -5,7 +5,9 @@ import {
     DISPLAY_ALERT, 
     SETUP_USER_BEGIN, 
     SETUP_USER_SUCCESS, 
-    SETUP_USER_ERROR
+    SETUP_USER_ERROR,
+    TOGGLE_SIDEBAR,
+    LOGOUT_USER
     } 
     from './actions'
 import axios from 'axios'
@@ -23,7 +25,8 @@ const initialState = {
     user: user ? JSON.parse(user): null,
     token: token,
     userLocation: useLocation || '',
-    jobLocation: useLocation || ''
+    jobLocation: useLocation || '',
+    showSidebar: false
 }
 
 const AppContext = React.createContext()
@@ -78,7 +81,16 @@ const AppProvider = ({children}) => {
         clearAlert()
     }
 
-    return <AppContext.Provider value={{...state, displayAlert, setupUser}}>
+    const toggleSidebar = () => {
+        dispatch({type: TOGGLE_SIDEBAR})
+    }
+
+    const logoutUser = () => {
+        dispatch({type: LOGOUT_USER})
+        removeUserFromLocalStorage()
+    }
+
+    return <AppContext.Provider value={{...state, displayAlert, setupUser, toggleSidebar, logoutUser}}>
         {children}
     </AppContext.Provider>
 }
