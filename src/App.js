@@ -6,10 +6,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = "/" 
-        element = {
+        <Route path = "/" element = {
           <ProtectedRoute>
-            <SharedLayout/>
+          <SharedLayout/>
           </ProtectedRoute>
         }>
           <Route index element={<Stats/>} /> 
