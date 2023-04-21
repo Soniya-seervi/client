@@ -22,7 +22,9 @@ import {
     DELETE_JOB_BEGIN,
     EDIT_JOB_BEGIN,
     EDIT_JOB_SUCCESS,
-    EDIT_JOB_ERROR
+    EDIT_JOB_ERROR,
+    SHOW_STATS_BEGIN,
+    SHOW_STATS_SUCCESS
     } 
     from './actions'
 import axios from 'axios'
@@ -54,7 +56,9 @@ const initialState = {
     jobs: [],
     totalJobs: 0,
     numOfPages: 1,
-    page: 1
+    page: 1,
+    stats: {},
+    monthlyApplications: []
 
 }
 
@@ -239,7 +243,19 @@ const AppProvider = ({children}) => {
         }
     }
 
-    return <AppContext.Provider value={{...state, displayAlert, setupUser, toggleSidebar, logoutUser, updateUser, handleChange, clearValues, createJob, getJobs, setEditJob, deleteJob, editJob}}>
+    const showStats = async() => {
+        dispatch({type: SHOW_STATS_BEGIN})
+        try {
+            const {data} = await authFetch('/jobs/stats')
+            dispatch({type: SHOW_STATS_SUCCESS, payload:{stats: data.defaultStats, monthlyApplications: data.monthlyApplications}})
+        } catch (error) {
+            console.log(error.response);
+            // logoutUser()
+        }
+        clearAlert()
+    }
+
+    return <AppContext.Provider value={{...state, displayAlert, setupUser, toggleSidebar, logoutUser, updateUser, handleChange, clearValues, createJob, getJobs, setEditJob, deleteJob, editJob, showStats}}>
         {children}
     </AppContext.Provider>
 }
