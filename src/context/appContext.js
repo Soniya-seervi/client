@@ -24,7 +24,8 @@ import {
     EDIT_JOB_SUCCESS,
     EDIT_JOB_ERROR,
     SHOW_STATS_BEGIN,
-    SHOW_STATS_SUCCESS
+    SHOW_STATS_SUCCESS,
+    CLEAR_FILTERS
     } 
     from './actions'
 import axios from 'axios'
@@ -58,8 +59,12 @@ const initialState = {
     numOfPages: 1,
     page: 1,
     stats: {},
-    monthlyApplications: []
-
+    monthlyApplications: [],
+    search: '',
+    searchStatus: 'all',
+    searchType: 'all',
+    sort: 'latest',
+    sortOptions: ['latest', 'oldest', 'a-z', 'z-a']
 }
 
 const AppContext = React.createContext()
@@ -191,7 +196,13 @@ const AppProvider = ({children}) => {
     }
 
     const getJobs = async() => {
-        let url = `/jobs`
+        // will add page later
+        const {search, searchStatus, searchType, sort} = state
+        let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+
+        if(search){
+            url = url + `&search=${search}`
+        }
 
         dispatch({type: GET_JOBS_BEGIN})
         try {
@@ -255,7 +266,11 @@ const AppProvider = ({children}) => {
         clearAlert()
     }
 
-    return <AppContext.Provider value={{...state, displayAlert, setupUser, toggleSidebar, logoutUser, updateUser, handleChange, clearValues, createJob, getJobs, setEditJob, deleteJob, editJob, showStats}}>
+    const clearFilters = () => {
+        dispatch({type: CLEAR_FILTERS})
+    }
+
+    return <AppContext.Provider value={{...state, displayAlert, setupUser, toggleSidebar, logoutUser, updateUser, handleChange, clearValues, createJob, getJobs, setEditJob, deleteJob, editJob, showStats, clearFilters}}>
         {children}
     </AppContext.Provider>
 }
