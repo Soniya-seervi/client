@@ -212,8 +212,7 @@ const AppProvider = ({children}) => {
 
             dispatch({type: GET_JOBS_SUCCESS, payload: {jobs, totalJobs, numOfPages}})
         } catch (error) {
-            console.log(error.response)
-            // logoutUser()
+            logoutUser()
         }
         clearAlert()
     }
@@ -250,8 +249,7 @@ const AppProvider = ({children}) => {
             await authFetch.delete(`/jobs/${jobId}`)
             getJobs()
         } catch (error) {
-            console.log(error.response);
-            // logoutUser()
+            logoutUser()
         }
     }
 
@@ -261,8 +259,7 @@ const AppProvider = ({children}) => {
             const {data} = await authFetch('/jobs/stats')
             dispatch({type: SHOW_STATS_SUCCESS, payload:{stats: data.defaultStats, monthlyApplications: data.monthlyApplications}})
         } catch (error) {
-            console.log(error.response);
-            // logoutUser()
+            logoutUser()
         }
         clearAlert()
     }
